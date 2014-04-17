@@ -18,6 +18,10 @@
       [{:tag :img :attrs {:src "1.png"} :content nil} {:tag :img :attrs {:src "2.png"} :content nil}]
       (filter-imgs (parse-html (load-fixture "with_images.html"))))))
 
+(describe "get-attr"
+  (it "returns given attr for node"
+    (should= "1.png" (get-attr {:tag :img :attrs {:src "1.png"}} :src))))
+
 (describe "has-attr?"
   (it "returns true if passed node has the given attribute"
     (def node {:tag :img :attrs {:src "1.png"}})
@@ -40,5 +44,22 @@
         [{:tag :img :attrs {:data-bass64 "1.png" :src "1.png"} :content nil}
          {:tag :img :attrs {:src "2.png"} :content nil}
          {:tag :img :attrs {:data-bass64 "3.png" :src "3.png"} :content nil}]))))
+
+(describe "convert-to-bass64-map"
+  (it "returns bass64 map for given node"
+    (should=
+      {:id "1" :src "1.png"}
+      (convert-to-bass64-map
+        {:tag :img :attrs {:data-bass64 "1" :src "1.png"} :content nil}))))
+
+(describe "get-bass64-map"
+  (it "returns bass64 map"
+    (should=
+      [{:id "1" :src "1.png"}
+       {:id "3" :src "3.png"}]
+      (get-bass64-map
+        [{:tag :img :attrs {:data-bass64 "1" :src "1.png"} :content nil}
+         {:tag :img :attrs {:src "2.png"} :content nil}
+         {:tag :img :attrs {:data-bass64 "3" :src "3.png"} :content nil}]))))
 
 (run-specs)

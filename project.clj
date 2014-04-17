@@ -4,6 +4,7 @@
   :main bass64.builder
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/data.codec "0.1.0"]
+                 [org.clojure/data.json "0.2.4"]
                  [enlive "1.1.5"]
                  [org.bovinegenius/exploding-fish "0.3.4"]
                  [me.raynes/fs "1.4.5"]]

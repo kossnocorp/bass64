@@ -1,10 +1,7 @@
 (ns bass64.parser-spec
   (:require [speclj.core :refer :all]
+            [bass64.spec-helper :refer :all]
             [bass64.parser :refer :all]))
-
-(defn load-fixture
-  [path]
-  (java.io.StringReader. (slurp (str "./spec/bass64/fixtures/" path))))
 
 (describe "parse-html"
   (it "parses html string"

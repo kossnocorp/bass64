@@ -1,6 +1,5 @@
 (ns bass64.builder
   (:require [clojure.data.json :as json]
-            [net.cgrand.enlive-html :as html]
             [org.bovinegenius.exploding-fish :as uri]
             [bass64.parser :as parser]
             [bass64.converter :as converter])
@@ -18,7 +17,8 @@
       [uri-obj (uri/uri url)
        scheme (uri-obj :scheme)
        host (uri-obj :host)
-       scheme-and-host (str scheme "://" host)]
+       port  (uri-obj :port)
+       scheme-and-host (if (number? port) (str scheme "://" host ":" port) (str scheme "://" host))]
       (if (path-relative-to-root? src)
         (str scheme-and-host src)
         src))))
@@ -61,5 +61,10 @@
   (json/write-str (bass64-maps-as-json-map bass64-maps)))
 
 (defn -main [url]
-  (println
-    (html/select (parser/parse-html (get-url url)) [:img])))
+  (let
+    [html (parser/parse-html (get-url url))
+     raw-bass64-maps (parser/get-bass64-map html)
+     bass64-maps-with-urls (bass64-maps-with-urls raw-bass64-maps url)
+     bass64-maps (bass64-maps-with-base64 bass64-maps-with-urls)
+     json (build-json-from-bass64-maps bass64-maps)]
+    (println json)))

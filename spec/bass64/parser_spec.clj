@@ -32,12 +32,12 @@
       (filter-nodes-by-attr
         [{:tag :img} {:tag :img :attrs {:src "2.png"}}] :src))))
 
-(describe "filter-bass64-imgs"
+(describe "filter-bass64-nodes"
   (it "filters node marked as data-bass64"
     (should=
       [{:tag :img :attrs {:data-bass64 "1.png" :src "1.png"} :content nil}
        {:tag :img :attrs {:data-bass64 "3.png" :src "3.png"} :content nil}]
-      (filter-bass64-imgs
+      (filter-bass64-nodes
         [{:tag :img :attrs {:data-bass64 "1.png" :src "1.png"} :content nil}
          {:tag :img :attrs {:src "2.png"} :content nil}
          {:tag :img :attrs {:data-bass64 "3.png" :src "3.png"} :content nil}]))))
@@ -57,6 +57,7 @@
       (get-bass64-map
         [{:tag :img :attrs {:data-bass64 "1" :src "1.png"} :content nil}
          {:tag :img :attrs {:src "2.png"} :content nil}
+         {:tag :div :attrs {:data-bass64 "fake"} :content nil}
          {:tag :img :attrs {:data-bass64 "3" :src "3.png"} :content nil}]))))
 
 (run-specs)

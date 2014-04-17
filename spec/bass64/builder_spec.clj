@@ -17,7 +17,10 @@
       (normalize-url "http://www.toptal.com/assets/1.png" "http://www.toptal.com/clients"))
     (should=
       "http://www.toptal.com/assets/1.png"
-      (normalize-url "/assets/1.png" "http://www.toptal.com/clients"))))
+      (normalize-url "/assets/1.png" "http://www.toptal.com/clients"))
+    (should=
+      "http://localhost:3000/assets/1.png"
+      (normalize-url "/assets/1.png" "http://localhost:3000/clients"))))
     ; TODO:
     ;(should=
       ;"http://www.toptal.com/assets/1.png"

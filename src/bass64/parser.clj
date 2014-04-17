@@ -22,7 +22,7 @@
   (defn has-bass64-attr? [node] (has-attr? node attr-name))
   (filter has-bass64-attr? nodes))
 
-(defn filter-bass64-imgs
+(defn filter-bass64-nodes
   [nodes]
   (filter-nodes-by-attr nodes :data-bass64))
 
@@ -32,4 +32,6 @@
 
 (defn get-bass64-map
   [nodes]
-  (map convert-to-bass64-map (filter-bass64-imgs nodes)))
+  (map
+    convert-to-bass64-map
+    (filter-bass64-nodes (filter-imgs nodes))))
